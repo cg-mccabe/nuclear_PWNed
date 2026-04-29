@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://df2q065ybamps"]
+
+[ext_resource type="Texture2D" uid="uid://phmn48v4ppsl" path="res://assets/sprites/merchant-Sheet.png" id="1_gujfw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_chuui"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gujfw")
+}],
+"loop": true,
+"name": &"Merchant",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D" unique_id=1757148264]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=676129428]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_chuui")
+animation = &"Merchant"
