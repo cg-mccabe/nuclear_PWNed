@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://pejenpffcnxe"]
+
+[ext_resource type="Texture2D" uid="uid://cwnmbsxvprw2g" path="res://assets/sprites/girl_with_pipe-Sheet.png" id="1_bo02g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0vtd"]
+atlas = ExtResource("1_bo02g")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1okgw"]
+atlas = ExtResource("1_bo02g")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_840df"]
+atlas = ExtResource("1_bo02g")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_labsi"]
+atlas = ExtResource("1_bo02g")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4y0bu"]
+atlas = ExtResource("1_bo02g")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rruk1"]
+atlas = ExtResource("1_bo02g")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_725ku"]
+atlas = ExtResource("1_bo02g")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdess"]
+atlas = ExtResource("1_bo02g")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7or6"]
+atlas = ExtResource("1_bo02g")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fn3c"]
+atlas = ExtResource("1_bo02g")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y1r3k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0vtd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1okgw")
+}],
+"loop": true,
+"name": &"getting hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_840df")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_labsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4y0bu")
+}],
+"loop": true,
+"name": &"hitting",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rruk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_725ku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pdess")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7or6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fn3c")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D" unique_id=1304578539]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=173012246]
+sprite_frames = SubResource("SpriteFrames_y1r3k")
+animation = &"walking"
