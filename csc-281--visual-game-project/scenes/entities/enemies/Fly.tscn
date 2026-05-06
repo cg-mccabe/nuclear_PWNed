@@ -1,6 +1,10 @@
-[gd_scene format=3 uid="uid://bux7xge051eie"]
+[gd_scene format=3 uid="uid://7v8rsc0va5q3"]
 
 [ext_resource type="Texture2D" uid="uid://bhs3fl0cfm88y" path="res://assets/sprites/FLy-Sheet.png" id="1_eyavx"]
+[ext_resource type="PackedScene" uid="uid://clufn3x8xyslp" path="res://scenes/entities/enemies/Enemy.tscn" id="1_fuwl2"]
+[ext_resource type="Script" uid="uid://blb3gxpfb5imt" path="res://scripts/entities/enemies/Fly.cs" id="2_fuwl2"]
+[ext_resource type="PackedScene" uid="uid://bwuyy0ppuupkr" path="res://scenes/ui/VialPickup_Blood.tscn" id="3_ico8c"]
+[ext_resource type="PackedScene" path="res://scenes/ui/VialPickup_Goop.tscn" id="4_b8ipb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mlpnx"]
 atlas = ExtResource("1_eyavx")
@@ -50,7 +54,7 @@ region = Rect2(128, 0, 32, 32)
 atlas = ExtResource("1_eyavx")
 region = Rect2(160, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_bpvfx"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_fuwl2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -104,9 +108,25 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Node2D" type="Node2D" unique_id=1650961385]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_contact"]
+radius = 8.0
+height = 16.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2101228743]
+[node name="Enemy" unique_id=209762169 instance=ExtResource("1_fuwl2")]
+script = ExtResource("2_fuwl2")
+BloodVialScene = ExtResource("3_ico8c")
+GoopVialScene = ExtResource("4_b8ipb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=1049429326]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_bpvfx")
+sprite_frames = SubResource("SpriteFrames_fuwl2")
 animation = &"flying"
+
+[node name="Sprite2D" parent="." index="1" unique_id=212930110]
+visible = false
+
+[node name="ContactHitbox" type="Area2D" parent="." index="4" unique_id=413065409]
+collision_layer = 0
+
+[node name="ContactShape" type="CollisionShape2D" parent="ContactHitbox" index="0" unique_id=413065410]
+shape = SubResource("CapsuleShape2D_contact")

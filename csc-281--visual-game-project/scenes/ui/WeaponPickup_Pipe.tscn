@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bgpurn2dfx121"]
+
+[ext_resource type="Script" uid="uid://djdvh3nl1ulho" path="res://scripts/ui/WeaponPickup.cs" id="1_vpryn"]
+[ext_resource type="Texture2D" uid="uid://7cyjidyul1g4" path="res://assets/sprites/Lead Pipe.png" id="2_vpryn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nrdpv"]
+radius = 16.0
+
+[node name="WeaponPickupPipe" type="Area2D" unique_id=2065014807]
+scale = Vector2(0.0701252, 0.049798805)
+script = ExtResource("1_vpryn")
+WeaponToGrant = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1833641363]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_vpryn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=702526112]
+shape = SubResource("CircleShape2D_nrdpv")

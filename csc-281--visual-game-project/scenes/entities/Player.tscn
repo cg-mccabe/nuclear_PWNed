@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dbe7twrsq2ejb" path="res://assets/sprites/girl_with_gloves-Sheet.png" id="2_24gqh"]
 [ext_resource type="Texture2D" uid="uid://co84gmirajk28" path="res://assets/sprites/girlglove1.png" id="2_o7et6"]
 [ext_resource type="Texture2D" uid="uid://cmiwysawt4ekk" path="res://assets/sprites/girl_withbat-Sheet.png" id="3_yjynp"]
+[ext_resource type="Texture2D" uid="uid://cwnmbsxvprw2g" path="res://assets/sprites/girl_with_pipe-Sheet.png" id="4_pipe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f4i6i"]
 atlas = ExtResource("2_24gqh")
@@ -201,6 +202,106 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe_atk0"]
+atlas = ExtResource("4_pipe")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe_atk1"]
+atlas = ExtResource("4_pipe")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe_atk2"]
+atlas = ExtResource("4_pipe")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe_hit0"]
+atlas = ExtResource("4_pipe")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe_hit1"]
+atlas = ExtResource("4_pipe")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe_norm"]
+atlas = ExtResource("4_pipe")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe_wlk0"]
+atlas = ExtResource("4_pipe")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe_wlk1"]
+atlas = ExtResource("4_pipe")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe_wlk2"]
+atlas = ExtResource("4_pipe")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe_wlk3"]
+atlas = ExtResource("4_pipe")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe_wlk4"]
+atlas = ExtResource("4_pipe")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pipe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe_atk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe_atk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe_atk2")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe_hit0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe_hit1")
+}],
+"loop": false,
+"name": &"getting hit",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe_norm")
+}],
+"loop": true,
+"name": &"normal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe_wlk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe_wlk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe_wlk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe_wlk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe_wlk4")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 10.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2m2ha"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_melee"]
@@ -212,12 +313,18 @@ script = ExtResource("1_g13of")
 [node name="AnimatedSprite2DGloves" type="AnimatedSprite2D" parent="." unique_id=874329537]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_yjynp")
-animation = &"attack"
+animation = &"normal"
 
 [node name="AnimatedSprite2DBat" type="AnimatedSprite2D" parent="." unique_id=1011289174]
 visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_j1g85")
+animation = &"normal"
+
+[node name="AnimatedSprite2DPipe" type="AnimatedSprite2D" parent="." unique_id=1349026196]
+visible = false
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_pipe")
 animation = &"normal"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=174154891]
@@ -233,3 +340,5 @@ collision_mask = 2
 [node name="HitboxShape" type="CollisionShape2D" parent="MeleeHitbox" unique_id=411065410]
 shape = SubResource("RectangleShape2D_melee")
 disabled = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1305267226]

@@ -144,8 +144,6 @@ animations = [{
 "speed": 7.0
 }]
 
-; Contact shape — slightly smaller than the body capsule so the
-; enemy has to be visually touching the player before dealing damage.
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_contact"]
 radius = 7.0
 height = 14.0
@@ -162,12 +160,9 @@ animation = &"Getting Hit"
 [node name="Sprite2D" parent="." index="1" unique_id=212930110]
 visible = false
 
-; ── Contact damage hitbox ─────────────────────────────────────────────────────
-; collision_layer = 0  → this area doesn't exist on any layer itself
-; collision_mask  = 1  → scans layer 1, which is where the Player body lives
-[node name="ContactHitbox" type="Area2D" parent="." unique_id=9002000001]
+[node name="ContactHitbox" type="Area2D" parent="." unique_id=412065409]
 collision_layer = 0
 collision_mask = 1
 
-[node name="ContactShape" type="CollisionShape2D" parent="ContactHitbox" unique_id=9002000002]
+[node name="ContactShape" type="CollisionShape2D" parent="ContactHitbox" unique_id=412065410]
 shape = SubResource("CapsuleShape2D_contact")

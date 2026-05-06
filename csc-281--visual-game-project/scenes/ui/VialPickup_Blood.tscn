@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bwuyy0ppuupkr"]
+
+[ext_resource type="Script" uid="uid://bicmkutcb7owd" path="res://scripts/ui/VialPickup.cs" id="1_blood"]
+[ext_resource type="Texture2D" uid="uid://mwrpopu2m66t" path="res://assets/sprites/Vial_of_Blood.png" id="2_blood"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_blood"]
+radius = 12.0
+
+[node name="VialPickupBlood" type="Area2D" unique_id=-1293967295]
+collision_layer = 0
+script = ExtResource("1_blood")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=-1293967294]
+texture_filter = 1
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_blood")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=-1293967293]
+shape = SubResource("CircleShape2D_blood")

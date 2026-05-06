@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dm18ni8w7b4gn"]
 
+[ext_resource type="Script" uid="uid://bpkwxe76lsp6s" path="res://scripts/entities/enemies/BossFrog.cs" id="1_jcevp"]
 [ext_resource type="Texture2D" uid="uid://c2dgmil7wsu2v" path="res://assets/sprites/frog_attacl-Sheet.png" id="1_m6g38"]
+[ext_resource type="Texture2D" uid="uid://1avr7236j0nk" path="res://assets/sprites/Trash_attack-Sheet.png" id="2_fmluu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fmluu"]
 atlas = ExtResource("1_m6g38")
@@ -62,6 +64,34 @@ region = Rect2(192, 0, 64, 64)
 atlas = ExtResource("1_m6g38")
 region = Rect2(256, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrwll"]
+atlas = ExtResource("2_fmluu")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6srm"]
+atlas = ExtResource("2_fmluu")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3r03"]
+atlas = ExtResource("2_fmluu")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4t7m6"]
+atlas = ExtResource("2_fmluu")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_802iq"]
+atlas = ExtResource("2_fmluu")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hpml"]
+atlas = ExtResource("2_fmluu")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3b0p2"]
+atlas = ExtResource("2_fmluu")
+region = Rect2(192, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_r3g6m"]
 animations = [{
 "frames": [{
@@ -119,15 +149,61 @@ animations = [{
 "name": &"talking",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrwll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6srm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3r03")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4t7m6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_802iq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hpml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3b0p2")
+}],
 "loop": true,
-"name": &"trash attack",
+"name": &"tash attack",
 "speed": 5.0
 }]
 
-[node name="Node2D" type="Node2D" unique_id=88906203]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ov6g2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_my2uv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jcevp"]
+size = Vector2(28, 27)
+
+[node name="Node2D" type="CharacterBody2D" unique_id=889160191 node_paths=PackedStringArray("AttackHitbox")]
+script = ExtResource("1_jcevp")
+AttackHitbox = NodePath("AttackHitbox")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1279434326]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_r3g6m")
-animation = &"talking"
+animation = &"tash attack"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=782757970]
+shape = SubResource("CapsuleShape2D_ov6g2")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=511790486]
+
+[node name="ContactHitbox" type="Area2D" parent="." unique_id=742800865]
+
+[node name="ContactShape" type="CollisionShape2D" parent="ContactHitbox" unique_id=946269661]
+shape = SubResource("CapsuleShape2D_my2uv")
+
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=2113700249]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=315855608]
+position = Vector2(14, -1.5)
+shape = SubResource("RectangleShape2D_jcevp")

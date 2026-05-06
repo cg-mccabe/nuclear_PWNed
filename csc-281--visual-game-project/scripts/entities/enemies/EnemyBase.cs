@@ -4,121 +4,108 @@ using Godot;
 /// Base class for all enemies. Handles navigation, health, knockback,
 /// and contact damage to the player.
 ///
-/// Registers itself in the "enemies" group so Player.cs can find it
-/// via GetTree().GetNodesInGroup("enemies") during a melee attack scan.
+/// Health, Speed, Damage, and Scale may be overridden by WaveManager
+/// when spawning boss variants (between Instantiate and AddChild).
 /// </summary>
 public partial class EnemyBase : CharacterBody2D
 {
-	[Export] public float Speed   { get; set; } = 80f;
-	[Export] public float Health  { get; set; } = 30f;
-	[Export] public float Damage  { get; set; } = 10f;
+    [Export] public float Speed          { get; set; } = 80f;
+    [Export] public float Health         { get; set; } = 30f;
+    [Export] public float Damage         { get; set; } = 10f;
+    [Export] public float ContactRadius  { get; set; } = 22f;
+    [Export] public float DamageInterval { get; set; } = 0.8f;
+    [Export] public float KnockbackDecay { get; set; } = 0.15f;
 
-	/// <summary>Radius (px) within which the enemy deals contact damage to the player.</summary>
-	[Export] public float ContactRadius  { get; set; } = 22f;
+    protected CharacterBody2D Player;
 
-	/// <summary>Seconds between contact-damage ticks.</summary>
-	[Export] public float DamageInterval { get; set; } = 0.8f;
+    private NavigationAgent2D _navAgent;
+    private float   _currentHealth;
+    private Vector2 _knockbackVelocity = Vector2.Zero;
+    private float   _damageCooldown    = 0f;
 
-	/// <summary>Fraction of knockback bled off per physics frame (higher = faster stop).</summary>
-	[Export] public float KnockbackDecay { get; set; } = 0.15f;
+    // ── Ready ─────────────────────────────────────────────────────────────────
 
-	protected CharacterBody2D Player;
+    public override void _Ready()
+    {
+        AddToGroup("enemies");
+        _navAgent      = GetNode<NavigationAgent2D>("NavigationAgent2D");
+        _currentHealth = Health;   // snapshot after any external mutation
+        CallDeferred(MethodName.FindPlayer);
+        _navAgent.VelocityComputed += OnVelocityComputed;
+    }
 
-	private NavigationAgent2D _navAgent;
-	private float   _currentHealth;
-	private Vector2 _knockbackVelocity = Vector2.Zero;
-	private float   _damageCooldown    = 0f;
+    private void FindPlayer()
+    {
+        var players = GetTree().GetNodesInGroup("player");
+        if (players.Count > 0)
+            Player = players[0] as CharacterBody2D;
+    }
 
-	// ── Ready ─────────────────────────────────────────────────────────────────
+    // ── Physics ───────────────────────────────────────────────────────────────
 
-	public override void _Ready()
-	{
-		AddToGroup("enemies");   // lets Player.cs find this node during attack scans
+    public override void _PhysicsProcess(double delta)
+    {
+        if (_damageCooldown > 0f)
+            _damageCooldown -= (float)delta;
 
-		_navAgent      = GetNode<NavigationAgent2D>("NavigationAgent2D");
-		_currentHealth = Health;
+        if (_knockbackVelocity.LengthSquared() > 4f)
+        {
+            _knockbackVelocity = _knockbackVelocity.Lerp(Vector2.Zero, KnockbackDecay);
+            Velocity = _knockbackVelocity;
+            MoveAndSlide();
+            return;
+        }
+        _knockbackVelocity = Vector2.Zero;
 
-		CallDeferred(MethodName.FindPlayer);
-		_navAgent.VelocityComputed += OnVelocityComputed;
-	}
+        if (Player == null) return;
 
-	private void FindPlayer()
-	{
-		var players = GetTree().GetNodesInGroup("player");
-		if (players.Count > 0)
-			Player = players[0] as CharacterBody2D;
-	}
+        _navAgent.TargetPosition = Player.GlobalPosition;
+        var dir = (_navAgent.GetNextPathPosition() - GlobalPosition).Normalized();
 
-	// ── Physics ───────────────────────────────────────────────────────────────
+        if (_navAgent.AvoidanceEnabled)
+            _navAgent.Velocity = dir * Speed;
+        else
+        {
+            Velocity = dir * Speed;
+            MoveAndSlide();
+        }
 
-	public override void _PhysicsProcess(double delta)
-	{
-		if (_damageCooldown > 0f)
-			_damageCooldown -= (float)delta;
+        if (_damageCooldown <= 0f &&
+            GlobalPosition.DistanceTo(Player.GlobalPosition) <= ContactRadius)
+        {
+            if (Player is Player p)
+            {
+                p.TakeDamage(Damage);
+                _damageCooldown = DamageInterval;
+                GD.Print($"{Name} dealt {Damage} dmg to player");
+            }
+        }
+    }
 
-		// ── Knockback takes priority over navigation ───────────────────────────
-		if (_knockbackVelocity.LengthSquared() > 4f)
-		{
-			_knockbackVelocity = _knockbackVelocity.Lerp(Vector2.Zero, KnockbackDecay);
-			Velocity = _knockbackVelocity;
-			MoveAndSlide();
-			return;
-		}
-		_knockbackVelocity = Vector2.Zero;
+    private void OnVelocityComputed(Vector2 safeVelocity)
+    {
+        Velocity = safeVelocity + _knockbackVelocity;
+        MoveAndSlide();
+    }
 
-		// ── Normal navigation ─────────────────────────────────────────────────
-		if (Player == null) return;
+    // ── Public API ────────────────────────────────────────────────────────────
 
-		_navAgent.TargetPosition = Player.GlobalPosition;
-		var dir = (_navAgent.GetNextPathPosition() - GlobalPosition).Normalized();
+    public virtual bool TakeDamage(float amount, Vector2 knockback = default)
+    {
+        _currentHealth    -= amount;
+        _knockbackVelocity = knockback;
+        OnDamaged(amount);
 
-		if (_navAgent.AvoidanceEnabled)
-			_navAgent.Velocity = dir * Speed;
-		else
-		{
-			Velocity = dir * Speed;
-			MoveAndSlide();
-		}
+        if (_currentHealth <= 0)
+        {
+            OnDeath();
+            return true;
+        }
+        return false;
+    }
 
-		// ── Contact damage: distance check, no Area2D needed ──────────────────
-		if (_damageCooldown <= 0f &&
-		    GlobalPosition.DistanceTo(Player.GlobalPosition) <= ContactRadius)
-		{
-			if (Player is Player p)
-			{
-				p.TakeDamage(Damage);
-				_damageCooldown = DamageInterval;
-				GD.Print($"{Name} dealt {Damage} dmg to player");
-			}
-		}
-	}
+    // ── Overridable hooks ─────────────────────────────────────────────────────
 
-	private void OnVelocityComputed(Vector2 safeVelocity)
-	{
-		Velocity = safeVelocity + _knockbackVelocity;
-		MoveAndSlide();
-	}
-
-	// ── Public API ────────────────────────────────────────────────────────────
-
-	/// <summary>Apply damage + optional knockback impulse. Returns true if the enemy died.</summary>
-	public virtual bool TakeDamage(float amount, Vector2 knockback = default)
-	{
-		_currentHealth    -= amount;
-		_knockbackVelocity = knockback;
-		OnDamaged(amount);
-
-		if (_currentHealth <= 0)
-		{
-			OnDeath();
-			return true;
-		}
-		return false;
-	}
-
-	// ── Overridable hooks ─────────────────────────────────────────────────────
-
-	protected virtual void OnDamaged(float amount) { }
-
-	protected virtual void OnDeath() => QueueFree();
+    protected virtual void OnDamaged(float amount) { }
+    protected virtual void OnDeath() => QueueFree();
 }

@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://bkbjgn0jleefm"]
+
+[ext_resource type="Texture2D" uid="uid://b0gdci6osfua8" path="res://assets/sprites/rat-Sheet.png" id="1_2md86"]
+[ext_resource type="PackedScene" uid="uid://clufn3x8xyslp" path="res://scenes/entities/enemies/Enemy.tscn" id="1_ng38b"]
+[ext_resource type="Script" uid="uid://2kq15qqbexul" path="res://scripts/entities/enemies/Rat.cs" id="2_ng38b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_567lh"]
+atlas = ExtResource("1_2md86")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdoq4"]
+atlas = ExtResource("1_2md86")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyiu0"]
+atlas = ExtResource("1_2md86")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ragpm"]
+atlas = ExtResource("1_2md86")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utreb"]
+atlas = ExtResource("1_2md86")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjun1"]
+atlas = ExtResource("1_2md86")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3ixa"]
+atlas = ExtResource("1_2md86")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8n7gf"]
+atlas = ExtResource("1_2md86")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy4aw"]
+atlas = ExtResource("1_2md86")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ti5p0"]
+atlas = ExtResource("1_2md86")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysf2h"]
+atlas = ExtResource("1_2md86")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvhwg"]
+atlas = ExtResource("1_2md86")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rth76"]
+atlas = ExtResource("1_2md86")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lcap"]
+atlas = ExtResource("1_2md86")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ng38b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_567lh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdoq4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyiu0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ragpm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utreb")
+}],
+"loop": true,
+"name": &"Attacking",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjun1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3ixa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8n7gf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qy4aw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ti5p0")
+}],
+"loop": false,
+"name": &"Dying",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysf2h")
+}],
+"loop": true,
+"name": &"Normal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvhwg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rth76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lcap")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 9.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_contact"]
+radius = 7.0
+height = 14.0
+
+[node name="Enemy" unique_id=209762169 instance=ExtResource("1_ng38b")]
+script = ExtResource("2_ng38b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=309150337]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ng38b")
+animation = &"Dying"
+
+[node name="Sprite2D" parent="." index="1" unique_id=212930110]
+visible = false
+
+[node name="ContactHitbox" type="Area2D" parent="." index="4" unique_id=412065409]
+collision_layer = 0
+
+[node name="ContactShape" type="CollisionShape2D" parent="ContactHitbox" index="0" unique_id=412065410]
+shape = SubResource("CapsuleShape2D_contact")

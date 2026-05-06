@@ -14,8 +14,8 @@ public partial class EnemyA : EnemyBase
 	public override void _Ready()
 	{
 		Speed  = 130f;
-		Health = 15f;
-		Damage = 5f;
+		Health = 75f;   // was 15 — scaled 5x to match player's 500 HP
+		Damage = 25f;   // was 5  — one hit = one heart (100 HP per heart)
 		base._Ready();
 
 		_sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");

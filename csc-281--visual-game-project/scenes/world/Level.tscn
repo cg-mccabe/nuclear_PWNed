@@ -1,23 +1,259 @@
 [gd_scene format=3 uid="uid://diw5ohq5ukrfy"]
 
+[ext_resource type="Script" uid="uid://cwku1fnmukjpj" path="res://scripts/world/level.cs" id="1_hj186"]
 [ext_resource type="PackedScene" uid="uid://1f33jo5p2xxm" path="res://scenes/entities/Player.tscn" id="1_nksj5"]
 [ext_resource type="PackedScene" uid="uid://ce7a8l1aw13vh" path="res://scenes/entities/enemies/EnemyA.tscn" id="3_356sj"]
-[ext_resource type="PackedScene" uid="uid://fww8nx2pvc73" path="res://scenes/ui/HUD.tscn" id="3_ly3lj"]
 [ext_resource type="Script" uid="uid://cmexy282t2hsv" path="res://scripts/world/Spawner.cs" id="3_vqxnd"]
 [ext_resource type="PackedScene" uid="uid://7mva2v8qtnm2" path="res://scenes/entities/enemies/EnemyB.tscn" id="4_msyow"]
+[ext_resource type="Script" uid="uid://mgxwsoj37lm0" path="res://scripts/ui/HudController.cs" id="6_hj186"]
 [ext_resource type="Texture2D" uid="uid://16rxt442w7b0" path="res://assets/sprites/Level 1 Background.png" id="6_msyow"]
-[ext_resource type="AudioStream" uid="uid://dqtpvud6fy606" path="res://assets/audio/Menu_Music.mp3" id="7_3v4r2"]
+[ext_resource type="Texture2D" uid="uid://bfqwmtovauyi6" path="res://assets/sprites/ALL-HUD-Sheet.png" id="7_cqbu2"]
+[ext_resource type="AudioStream" uid="uid://dwgv6tfv1ylsf" path="res://assets/audio/neighborhood_ost.mp3" id="7_ubqmj"]
+[ext_resource type="Texture2D" uid="uid://bj6h68wkxw1mj" path="res://assets/sprites/HUD-Sheet.png" id="8_1o4mw"]
+[ext_resource type="Script" uid="uid://cupc7e16xtcuc" path="res://scripts/world/WaveManager.cs" id="8_kwpxf"]
+[ext_resource type="PackedScene" uid="uid://dm18ni8w7b4gn" path="res://scenes/entities/enemies/BossFrog.tscn" id="9_ubqmj"]
+[ext_resource type="PackedScene" uid="uid://boe3kouxwi73e" path="res://scenes/ui/WeaponPickup_Bat.tscn" id="10_6fa85"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vqxnd"]
-vertices = PackedVector2Array(163.27344, 2053.1016, -1561.8281, 2071.8828, -1528.1563, 19.976563, 194.28125, 967.15625, 1296.25, 17.007813, 1320.7266, 948.1719)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-1538, 10, -1572, 2082, 173, 2063, 1311, 2068, 1331, 958, 1306, 7)])
+vertices = PackedVector2Array(574.8906, 28.953125, 558.10156, 1654.9688, -1530.9766, 1650.0234, -1528.0078, 20.039063)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1538, 10, -1541, 1660, 568, 1665, 585, 19)])
+
+[sub_resource type="LabelSettings" id="LabelSettings_3v4r2"]
+font_size = 30
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjhiv"]
+atlas = ExtResource("7_cqbu2")
+region = Rect2(3360, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwe0v"]
+atlas = ExtResource("7_cqbu2")
+region = Rect2(3840, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddulk"]
+atlas = ExtResource("7_cqbu2")
+region = Rect2(4320, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3x4ys"]
+atlas = ExtResource("7_cqbu2")
+region = Rect2(4800, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oiedp"]
+atlas = ExtResource("7_cqbu2")
+region = Rect2(5280, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_semq6"]
+atlas = ExtResource("7_cqbu2")
+region = Rect2(2880, 0, 480, 270)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mrat3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjhiv")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwe0v")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddulk")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3x4ys")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oiedp")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_semq6")
+}],
+"loop": true,
+"name": &"Hud bat normal",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ooi43"]
+atlas = ExtResource("8_1o4mw")
+region = Rect2(480, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6brx"]
+atlas = ExtResource("8_1o4mw")
+region = Rect2(960, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2iamf"]
+atlas = ExtResource("8_1o4mw")
+region = Rect2(1440, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jahhi"]
+atlas = ExtResource("8_1o4mw")
+region = Rect2(1920, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exk27"]
+atlas = ExtResource("8_1o4mw")
+region = Rect2(2400, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qm5lp"]
+atlas = ExtResource("8_1o4mw")
+region = Rect2(0, 0, 480, 270)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yw3jc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ooi43")
+}],
+"loop": true,
+"name": &"Hub gloves 1 hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6brx")
+}],
+"loop": true,
+"name": &"Hud glove 2 hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2iamf")
+}],
+"loop": true,
+"name": &"Hud glove 3 hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jahhi")
+}],
+"loop": true,
+"name": &"Hud glove 4 hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exk27")
+}],
+"loop": true,
+"name": &"Hud glove 5 hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qm5lp")
+}],
+"loop": true,
+"name": &"Hud gloves",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wss2d"]
+atlas = ExtResource("7_cqbu2")
+region = Rect2(480, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arwo3"]
+atlas = ExtResource("7_cqbu2")
+region = Rect2(960, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jr472"]
+atlas = ExtResource("7_cqbu2")
+region = Rect2(1440, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pdil"]
+atlas = ExtResource("7_cqbu2")
+region = Rect2(1920, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyiyi"]
+atlas = ExtResource("7_cqbu2")
+region = Rect2(2400, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtjgk"]
+atlas = ExtResource("7_cqbu2")
+region = Rect2(0, 0, 480, 270)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xewsu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wss2d")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 1 ",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arwo3")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jr472")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pdil")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyiyi")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtjgk")
+}],
+"loop": true,
+"name": &"Hud Pipe normal",
+"speed": 5.0
+}]
 
 [node name="Level" type="Node2D" unique_id=765604]
+script = ExtResource("1_hj186")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1707424173]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1752980935]
+position = Vector2(476, -832)
 navigation_polygon = SubResource("NavigationPolygon_vqxnd")
 
 [node name="Spawner" type="Node2D" parent="." unique_id=1760117897 node_paths=PackedStringArray("EnemyContainer")]
@@ -32,36 +268,85 @@ position = Vector2(281, 321)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1036925543]
 
-[node name="Enemies" type="Node2D" parent="." unique_id=614687873]
+[node name="Hud" type="Control" parent="CanvasLayer" unique_id=658954811 node_paths=PackedStringArray("GlovesHud", "BatHud", "PipeHud", "WaveLabel", "TimerLabel", "PromptLabel")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_hj186")
+GlovesHud = NodePath("GlovesHud")
+BatHud = NodePath("BatHud")
+PipeHud = NodePath("PipeHud")
+WaveLabel = NodePath("WaveLabel")
+TimerLabel = NodePath("TimerLabel")
+PromptLabel = NodePath("PromptLabel")
 
-[node name="Hud" parent="." unique_id=440236349 instance=ExtResource("3_ly3lj")]
-position = Vector2(334, 222)
+[node name="WaveLabel" type="Label" parent="CanvasLayer/Hud" unique_id=1028521210]
+layout_mode = 0
+offset_left = 387.0
+offset_top = 15.0
+offset_right = 427.0
+offset_bottom = 38.0
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/Hud" unique_id=271256942]
+layout_mode = 0
+offset_left = 750.0
+offset_top = 15.0
+offset_right = 790.0
+offset_bottom = 38.0
+horizontal_alignment = 2
+
+[node name="PromptLabel" type="Label" parent="CanvasLayer/Hud" unique_id=1224724367]
+layout_mode = 0
+offset_left = 334.0
+offset_top = 222.0
+offset_right = 374.0
+offset_bottom = 264.0
+label_settings = SubResource("LabelSettings_3v4r2")
+horizontal_alignment = 1
+
+[node name="BatHud" type="AnimatedSprite2D" parent="CanvasLayer/Hud" unique_id=1282828588]
+visible = false
+texture_filter = 1
+position = Vector2(535, 308)
+scale = Vector2(2.165, 2.246)
+sprite_frames = SubResource("SpriteFrames_mrat3")
+animation = &"Hud Pipe hit 5"
+
+[node name="GlovesHud" type="AnimatedSprite2D" parent="CanvasLayer/Hud" unique_id=33272173]
+position = Vector2(535, 308)
+scale = Vector2(2.0499716, 2.2455251)
+sprite_frames = SubResource("SpriteFrames_yw3jc")
+animation = &"Hud gloves"
+
+[node name="PipeHud" type="AnimatedSprite2D" parent="CanvasLayer/Hud" unique_id=1370714502]
+visible = false
+position = Vector2(535, 308)
+scale = Vector2(2.246, 2.246)
+sprite_frames = SubResource("SpriteFrames_xewsu")
+animation = &"Hud Pipe normal"
+
+[node name="Enemies" type="Node2D" parent="." unique_id=614687873]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1854825340]
 z_index = -4096
-position = Vector2(670.49994, 482.375)
-scale = Vector2(1.6087497, 1.2015624)
-texture = ExtResource("6_msyow")
-
-[node name="Background" type="Sprite2D" parent="Background" unique_id=2031839644]
-z_index = -4096
-position = Vector2(-884.6906, 5.079397)
-scale = Vector2(1.2349267, 0.9885088)
-texture = ExtResource("6_msyow")
-
-[node name="Background2" type="Sprite2D" parent="Background" unique_id=837108638]
-z_index = -4096
-position = Vector2(-860.3077, 855.6414)
-scale = Vector2(1.4121157, 1.1841334)
-texture = ExtResource("6_msyow")
-
-[node name="Background3" type="Sprite2D" parent="Background" unique_id=429768033]
-z_index = -4096
-position = Vector2(48.174107, 855.2407)
-scale = Vector2(0.8780109, 1.1630691)
+position = Vector2(-1.9999695, 2.0000153)
+scale = Vector2(2.6453748, 2.054375)
 texture = ExtResource("6_msyow")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=714545711]
-stream = ExtResource("7_3v4r2")
+stream = ExtResource("7_ubqmj")
 autoplay = true
 max_distance = 9999.0
+
+[node name="WaveManager" type="Node" parent="." unique_id=88097027 node_paths=PackedStringArray("EnemyContainer", "PlayerNode", "WaveLabel", "TimerLabel", "PromptLabel")]
+script = ExtResource("8_kwpxf")
+EnemyAScene = ExtResource("3_356sj")
+EnemyBScene = ExtResource("4_msyow")
+BossScene = ExtResource("9_ubqmj")
+WeaponPickupScene = ExtResource("10_6fa85")
+EnemyContainer = NodePath("../Enemies")
+PlayerNode = NodePath("../Player")
+WaveLabel = NodePath("../CanvasLayer/Hud/WaveLabel")
+TimerLabel = NodePath("../CanvasLayer/Hud/TimerLabel")
+PromptLabel = NodePath("../CanvasLayer/Hud/PromptLabel")

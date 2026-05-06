@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://boe3kouxwi73e"]
+
+[ext_resource type="Script" uid="uid://djdvh3nl1ulho" path="res://scripts/ui/WeaponPickup.cs" id="1_mxk4r"]
+[ext_resource type="Texture2D" uid="uid://cy72ayfwi0qmi" path="res://assets/sprites/Baseball Bat.png" id="2_ad3db"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nrdpv"]
+radius = 16.0
+
+[node name="WeaponPickupBat" type="Area2D" unique_id=2065014807]
+script = ExtResource("1_mxk4r")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1833641363]
+scale = Vector2(0.022686318, 0.022966718)
+texture = ExtResource("2_ad3db")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=702526112]
+shape = SubResource("CircleShape2D_nrdpv")

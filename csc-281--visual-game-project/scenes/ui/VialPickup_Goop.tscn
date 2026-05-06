@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://vial_goop001"]
+
+[ext_resource type="Script" path="res://scripts/ui/VialPickup.cs" id="1_goop"]
+[ext_resource type="Texture2D" path="res://assets/sprites/Vial_of_Goop.png" id="2_goop"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_goop"]
+radius = 12.0
+
+[node name="VialPickupGoop" type="Area2D" unique_id=3002000001]
+script = ExtResource("1_goop")
+Type = 1
+collision_layer = 0
+collision_mask = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=3002000002]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_goop")
+texture_filter = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=3002000003]
+shape = SubResource("CircleShape2D_goop")

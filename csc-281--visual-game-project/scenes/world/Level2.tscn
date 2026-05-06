@@ -1,3 +1,359 @@
 [gd_scene format=3 uid="uid://cpe3wwecys4r0"]
 
+[ext_resource type="Script" uid="uid://cmexy282t2hsv" path="res://scripts/world/Spawner.cs" id="1_t0aw8"]
+[ext_resource type="PackedScene" uid="uid://1f33jo5p2xxm" path="res://scenes/entities/Player.tscn" id="4_6nqwl"]
+[ext_resource type="Script" uid="uid://mgxwsoj37lm0" path="res://scripts/ui/HudController.cs" id="5_hud"]
+[ext_resource type="Texture2D" uid="uid://bfgma6aqbu52s" path="res://assets/sprites/Level 2 Background.png" id="6_3ce2a"]
+[ext_resource type="Texture2D" uid="uid://bfqwmtovauyi6" path="res://assets/sprites/ALL-HUD-Sheet.png" id="6_allhud"]
+[ext_resource type="AudioStream" uid="uid://b8m1rsbsjpjfp" path="res://assets/audio/office_ost.mp3" id="7_3ce2a"]
+[ext_resource type="Texture2D" uid="uid://bj6h68wkxw1mj" path="res://assets/sprites/HUD-Sheet.png" id="7_hudsheet"]
+[ext_resource type="PackedScene" uid="uid://bkbjgn0jleefm" path="res://scenes/entities/enemies/Rat.tscn" id="8_6nqwl"]
+[ext_resource type="Script" uid="uid://cupc7e16xtcuc" path="res://scripts/world/WaveManager.cs" id="8_hhoxm"]
+[ext_resource type="PackedScene" uid="uid://7v8rsc0va5q3" path="res://scenes/entities/enemies/Fly.tscn" id="9_3ce2a"]
+[ext_resource type="PackedScene" uid="uid://dfn8bs1wa3c6j" path="res://scenes/entities/enemies/BossSurgeon.tscn" id="10_8vml3"]
+[ext_resource type="PackedScene" uid="uid://bgpurn2dfx121" path="res://scenes/ui/WeaponPickup_Pipe.tscn" id="11_ebuh2"]
+[ext_resource type="Script" uid="uid://cwku1fnmukjpj" path="res://scripts/world/level.cs" id="12_lvl"]
+[ext_resource type="AudioStream" uid="uid://csw7miq7m8oyu" path="res://assets/audio/Final_Boss.mp3" id="14_ebuh2"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_6nqwl"]
+vertices = PackedVector2Array(574.8906, 28.953125, 558.10156, 1654.9688, -1530.9766, 1650.0234, -1528.0078, 20.039063)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1538, 10, -1541, 1660, 568, 1665, 585, 19)])
+
+[sub_resource type="LabelSettings" id="LabelSettings_3ce2a"]
+font_size = 30
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bat1"]
+atlas = ExtResource("6_allhud")
+region = Rect2(3360, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bat2"]
+atlas = ExtResource("6_allhud")
+region = Rect2(3840, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bat3"]
+atlas = ExtResource("6_allhud")
+region = Rect2(4320, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bat4"]
+atlas = ExtResource("6_allhud")
+region = Rect2(4800, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bat5"]
+atlas = ExtResource("6_allhud")
+region = Rect2(5280, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bat0"]
+atlas = ExtResource("6_allhud")
+region = Rect2(2880, 0, 480, 270)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bat"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bat1")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bat2")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bat3")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bat4")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bat5")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bat0")
+}],
+"loop": true,
+"name": &"Hud bat normal",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl1"]
+atlas = ExtResource("7_hudsheet")
+region = Rect2(480, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl2"]
+atlas = ExtResource("7_hudsheet")
+region = Rect2(960, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl3"]
+atlas = ExtResource("7_hudsheet")
+region = Rect2(1440, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl4"]
+atlas = ExtResource("7_hudsheet")
+region = Rect2(1920, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl5"]
+atlas = ExtResource("7_hudsheet")
+region = Rect2(2400, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl0"]
+atlas = ExtResource("7_hudsheet")
+region = Rect2(0, 0, 480, 270)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gloves"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gl1")
+}],
+"loop": true,
+"name": &"Hub gloves 1 hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gl2")
+}],
+"loop": true,
+"name": &"Hud glove 2 hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gl3")
+}],
+"loop": true,
+"name": &"Hud glove 3 hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gl4")
+}],
+"loop": true,
+"name": &"Hud glove 4 hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gl5")
+}],
+"loop": true,
+"name": &"Hud glove 5 hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gl0")
+}],
+"loop": true,
+"name": &"Hud gloves",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe1"]
+atlas = ExtResource("6_allhud")
+region = Rect2(480, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe2"]
+atlas = ExtResource("6_allhud")
+region = Rect2(960, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe3"]
+atlas = ExtResource("6_allhud")
+region = Rect2(1440, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe4"]
+atlas = ExtResource("6_allhud")
+region = Rect2(1920, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe5"]
+atlas = ExtResource("6_allhud")
+region = Rect2(2400, 0, 480, 270)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pipe0"]
+atlas = ExtResource("6_allhud")
+region = Rect2(0, 0, 480, 270)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pipe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe1")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 1 ",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe2")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe3")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe4")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe5")
+}],
+"loop": true,
+"name": &"Hud Pipe hit 5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pipe0")
+}],
+"loop": true,
+"name": &"Hud Pipe normal",
+"speed": 5.0
+}]
+
 [node name="Level2" type="Node2D" unique_id=29344409]
+script = ExtResource("12_lvl")
+StartingWeapon = 1
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1990362646]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=867329637]
+position = Vector2(476, -832)
+navigation_polygon = SubResource("NavigationPolygon_6nqwl")
+
+[node name="Spawner" type="Node2D" parent="." unique_id=844919204 node_paths=PackedStringArray("EnemyContainer")]
+process_mode = 3
+script = ExtResource("1_t0aw8")
+EnemyAScene = ExtResource("8_6nqwl")
+EnemyBScene = ExtResource("9_3ce2a")
+EnemyContainer = NodePath("../Enemies")
+
+[node name="Player" parent="." unique_id=1776114871 instance=ExtResource("4_6nqwl")]
+position = Vector2(281, 321)
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1888168115]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=911565529]
+
+[node name="Hud" type="Control" parent="CanvasLayer" unique_id=658954811 node_paths=PackedStringArray("GlovesHud", "BatHud", "PipeHud", "WaveLabel", "TimerLabel", "PromptLabel")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_hud")
+GlovesHud = NodePath("GlovesHud")
+BatHud = NodePath("BatHud")
+PipeHud = NodePath("PipeHud")
+WaveLabel = NodePath("WaveLabel")
+TimerLabel = NodePath("TimerLabel")
+PromptLabel = NodePath("PromptLabel")
+
+[node name="WaveLabel" type="Label" parent="CanvasLayer/Hud" unique_id=1858462471]
+layout_mode = 0
+offset_left = 387.0
+offset_top = 15.0
+offset_right = 427.0
+offset_bottom = 38.0
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/Hud" unique_id=1956403095]
+layout_mode = 0
+offset_left = 750.0
+offset_top = 15.0
+offset_right = 790.0
+offset_bottom = 38.0
+horizontal_alignment = 2
+
+[node name="PromptLabel" type="Label" parent="CanvasLayer/Hud" unique_id=277131327]
+layout_mode = 0
+offset_left = 334.0
+offset_top = 222.0
+offset_right = 374.0
+offset_bottom = 264.0
+label_settings = SubResource("LabelSettings_3ce2a")
+horizontal_alignment = 1
+
+[node name="BatHud" type="AnimatedSprite2D" parent="CanvasLayer/Hud" unique_id=1282828588]
+visible = false
+texture_filter = 1
+position = Vector2(535, 308)
+scale = Vector2(2.164, 2.246)
+sprite_frames = SubResource("SpriteFrames_bat")
+animation = &"Hud bat normal"
+
+[node name="GlovesHud" type="AnimatedSprite2D" parent="CanvasLayer/Hud" unique_id=33272173]
+visible = false
+texture_filter = 1
+position = Vector2(535, 308)
+scale = Vector2(2.164, 2.371)
+sprite_frames = SubResource("SpriteFrames_gloves")
+animation = &"Hud gloves"
+
+[node name="PipeHud" type="AnimatedSprite2D" parent="CanvasLayer/Hud" unique_id=1370714502]
+visible = false
+texture_filter = 1
+position = Vector2(535, 308)
+scale = Vector2(2.164, 2.246)
+sprite_frames = SubResource("SpriteFrames_pipe")
+animation = &"Hud Pipe normal"
+
+[node name="Background" type="Sprite2D" parent="." unique_id=642164602]
+z_index = -4096
+position = Vector2(-1.9999695, 2.0000153)
+scale = Vector2(2.6453748, 2.054375)
+texture = ExtResource("6_3ce2a")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1852669843]
+stream = ExtResource("7_3ce2a")
+autoplay = true
+max_distance = 9999.0
+
+[node name="WaveManager" type="Node" parent="." unique_id=1153074748 node_paths=PackedStringArray("EnemyContainer", "PlayerNode", "WaveLabel", "TimerLabel", "PromptLabel")]
+script = ExtResource("8_hhoxm")
+IsLevel2 = true
+EnemyAScene = ExtResource("8_6nqwl")
+EnemyBScene = ExtResource("9_3ce2a")
+BossScene = ExtResource("10_8vml3")
+WeaponPickupScene = ExtResource("11_ebuh2")
+EnemyContainer = NodePath("../Enemies")
+PlayerNode = NodePath("../Player")
+WaveLabel = NodePath("../CanvasLayer/Hud/WaveLabel")
+TimerLabel = NodePath("../CanvasLayer/Hud/TimerLabel")
+PromptLabel = NodePath("../CanvasLayer/Hud/PromptLabel")
+BossMusicStream = ExtResource("14_ebuh2")

@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://clufn3x8xyslp" path="res://scenes/entities/enemies/Enemy.tscn" id="1_op6bp"]
 [ext_resource type="Script" uid="uid://bli7j8nn5sbwl" path="res://scripts/entities/enemies/EnemyB.cs" id="2_r4und"]
 [ext_resource type="Texture2D" uid="uid://c2cwuby8ruftx" path="res://assets/sprites/plant-Sheet.png" id="3_b7ou6"]
+[ext_resource type="PackedScene" path="res://scenes/ui/VialPickup_Blood.tscn" id="3_qyk77"]
+[ext_resource type="PackedScene" path="res://scenes/ui/VialPickup_Goop.tscn" id="4_negrl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dp8jl"]
 atlas = ExtResource("3_b7ou6")
@@ -125,7 +127,6 @@ animations = [{
 "speed": 11.0
 }]
 
-; Contact shape — slightly smaller than body capsule
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_contact"]
 radius = 8.0
 height = 16.0
@@ -133,6 +134,8 @@ height = 16.0
 [node name="Enemy" unique_id=209762169 instance=ExtResource("1_op6bp")]
 script = ExtResource("2_r4und")
 KnockbackResistance = 0.6
+BloodVialScene = ExtResource("3_qyk77")
+GoopVialScene = ExtResource("4_negrl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0" unique_id=650779295]
 texture_filter = 1
@@ -142,11 +145,8 @@ animation = &"Attack"
 [node name="Sprite2D" parent="." index="1" unique_id=212930110]
 visible = false
 
-; ── Contact damage hitbox ─────────────────────────────────────────────────────
-; collision_mask = 1  → scans layer 1 (Player body layer)
-[node name="ContactHitbox" type="Area2D" parent="." unique_id=9003000001]
+[node name="ContactHitbox" type="Area2D" parent="." index="4" unique_id=413065409]
 collision_layer = 0
-collision_mask = 1
 
-[node name="ContactShape" type="CollisionShape2D" parent="ContactHitbox" unique_id=9003000002]
+[node name="ContactShape" type="CollisionShape2D" parent="ContactHitbox" index="0" unique_id=413065410]
 shape = SubResource("CapsuleShape2D_contact")
